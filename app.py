@@ -7,6 +7,7 @@ from flask import (
     session,
     g,
     jsonify,
+    flash,
 )
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -53,6 +54,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
             session["user_id"] = user.id
+            session["username"] = user.username  # Store username in session
             return redirect(url_for("index"))
         return redirect(url_for("login", error="Invalid credentials"))
     return render_template("login.html")
@@ -60,20 +62,31 @@ def login():
 
 @app.route("/logout")
 def logout():
-    session.pop("user_id", None)
-    return redirect(url_for("index"))
+    session.clear()  # Clear session
+    return redirect(url_for("index"))  # Redirect to home page
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        user = User(username=username)
-        user.set_password(password)
-        db.session.add(user)
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        # Check if username already exists
+        user = User.query.filter_by(username=username).first()
+        if user:
+            flash("Username already exists. Please choose a different one.")
+            return redirect(url_for("register"))
+
+        # Create new user
+        new_user = User(username=username)
+        new_user.set_password(password)
+        db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for("login"))
+
+        flash("Registration successful. Please log in.")
+        return redirect(url_for("login"))  # Redirect to login page
+
     return render_template("register.html")
 
 
