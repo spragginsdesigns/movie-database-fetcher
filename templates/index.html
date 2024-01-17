@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Metadata Fetcher</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="#watchList">Watch List</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h1>Movie Metadata Fetcher</h1>
+      <form id="movieForm">
+        <input
+          type="text"
+          id="title"
+          placeholder="Enter movie title"
+          required
+        />
+        <button type="submit">Search</button>
+      </form>
+      <div id="watchList"></div>
+      <div id="searchResults"></div>
+      <div id="movieData"></div>
+    </div>
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>
