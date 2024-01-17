@@ -8,34 +8,48 @@ body {
 
 /* navbar */
 
-/* ... existing styles ... */
-
 nav {
-    background-color: #0077cc;
-    padding: 10px 0;
-    text-align: center;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 nav a {
-    color: white;
+    margin: 0 10px;
+    color: #333;
     text-decoration: none;
-    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    background-color: #008CBA;
+    color: white;
 }
+
+nav a.active {
+    background-color: #008CBA;
+    color: white;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
 
 .container {
     max-width: 800px;
@@ -228,4 +242,50 @@ body.dark-mode div#watchListItems div {
 
 html {
     scroll-behavior: smooth;
+}
+
+
+
+
+
+
+/* Login Page - login.html styling */
+
+.login-container {
+    /* Styles specific to the login container */
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.form-group {
+    /* Styles for form groups */
+    margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="password"] {
+    /* Input field styles */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.btn {
+    /* Button styles */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0077cc;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #005fa3;
 }

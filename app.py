@@ -10,6 +10,20 @@ def index():
     return render_template("index.html")
 
 
+# App route for /templates/login.html
+@app.route("/login")
+def login():
+    # Serve the login page
+    return render_template("login.html")
+
+
+# App route for watchlist.html
+@app.route("/watchlist")
+def watchlist():
+    # Serve the watchlist page
+    return render_template("watchlist.html")
+
+
 @app.route("/searchMovies")
 def search_movies():
     # Search for movies by title
