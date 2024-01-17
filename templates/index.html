@@ -7,13 +7,19 @@
     <link rel="stylesheet" href="/static/style.css" />
   </head>
   <body>
+    <div class="switch">
+      <input type="checkbox" id="themeSwitch" />
+      <label for="themeSwitch">
+        <span class="slider round"></span>
+      </label>
+    </div>
     <nav>
       <ul>
         <li><a href="#watchList">Watch List</a></li>
       </ul>
     </nav>
     <div class="container">
-      <h1>Movie Metadata Fetcher</h1>
+      <h1>Movie Metadata Fetcher V.1.3</h1>
       <form id="movieForm">
         <input
           type="text"
@@ -29,5 +35,16 @@
     </div>
 
     <script src="/static/script.js"></script>
+    <script>
+      var themeSwitch = document.querySelector(".switch label");
+      themeSwitch.addEventListener("click", function (event) {
+        var checkbox = document.getElementById("themeSwitch");
+        if (checkbox.checked) {
+          document.body.classList.remove("dark-mode");
+        } else {
+          document.body.classList.add("dark-mode");
+        }
+      });
+    </script>
   </body>
 </html>

@@ -43,6 +43,9 @@ function fetchMovieDetails(imdbID) {
             document.getElementById('movieData').innerHTML = detailsHTML;
         })
         .catch(error => console.error('Error:', error));
+    // Smooth scroll to the movie data
+    document.getElementById('movieData').scrollIntoView({ behavior: 'smooth' });
+
 }
 
 function addToWatchList(imdbID, title, year) {

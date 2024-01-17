@@ -102,3 +102,130 @@ button:hover {
 #movieData p, #watchListItems p {
     line-height: 1.6;
 }
+
+/* Add A Light Mode and Dark mode */
+
+body {
+    /* Light mode styles */
+    background-color: white;
+    color: black;
+}
+
+body.dark-mode {
+    /* Dark mode styles */
+    background-color: black;
+    color: white;
+}
+
+body.dark-mode div#searchResults,
+body.dark-mode div#searchResults div {
+    /* Dark mode styles */
+    background-color: #333;
+    /* Dark grey */
+    color: #ddd;
+    /* Light grey */
+}
+
+body.dark-mode, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode h5, 
+body.dark-mode h6, 
+body.dark-mode span {
+    /* Dark mode styles */
+    background-color: #333; /* Lighter black */
+    color: white;
+}
+
+body.dark-mode div#searchResults div p {
+    /* Dark mode styles */
+    background-color: #444; /* Darker grey */
+    color: #ccc; /* Lighter grey */
+}
+
+/* Round the corners of all divs and paragraph tags */
+
+div, p {
+    border-radius: 8px;
+}
+
+
+/* Add a border to the top of the page */
+
+body {
+    border-top: 5px solid #0077cc;
+}
+
+/* Toggle Switch */
+
+.switch {
+    position: absolute;
+    top: 20px; /* Increase the distance from the top */
+    right: 20px; /* Increase the distance from the right */
+}
+
+.switch label {
+    position: relative;
+    display: inline-block;
+    width: 45px; /* Decrease the width */
+    height: 20px; /* Decrease the height */
+}
+
+.switch label .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.switch label .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px; /* Decrease the height */
+    width: 16px; /* Decrease the width */
+    left: 2px; /* Adjust the left position */
+    bottom: 2px; /* Adjust the bottom position */
+    background-color: white;
+    transition: .4s;
+}
+
+.switch input:checked + label .slider:before {
+    transform: translateX(20px); /* Adjust the translation distance */
+}
+.switch label .slider.round {
+    border-radius: 34px;
+}
+
+.switch label .slider.round:before {
+    border-radius: 50%;
+}
+
+.switch input {
+    display: none;
+}
+
+/* Dark mode for moviedata section */
+body.dark-mode div#movieData {
+    /* Dark mode styles */
+    background-color: #444; /* Dark grey */
+    color: #ccc; /* Light grey */
+}
+
+/* Dark mode for watchlist section */
+body.dark-mode div#watchListItems div {
+    /* Dark mode styles */
+    background-color: #333;
+    /* Dark grey */
+    color: #ddd;
+    /* Light grey */
+}
+
+/* Enable smooth scrolling behavior on the HTML page */
+
+html {
+    scroll-behavior: smooth;
+}
