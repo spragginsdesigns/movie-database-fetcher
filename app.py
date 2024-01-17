@@ -11,7 +11,14 @@ from flask import (
 )
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_required, current_user
+from flask_login import (
+    login_required,
+    current_user,
+    LoginManager,
+    UserMixin,
+    login_user,
+    logout_user,
+)
 import requests
 
 app = Flask(__name__)
@@ -22,6 +29,10 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = "your_secret_key"  # Replace with a strong secret key
 
 db = SQLAlchemy(app)
+
+# Initialize Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 # Movie Model
@@ -42,7 +53,7 @@ user_movies = db.Table(
 
 
 # User Model
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
@@ -55,6 +66,12 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+# User loader function
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 # Create database tables
@@ -74,8 +91,7 @@ def login():
         password = request.form["password"]
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
-            session["user_id"] = user.id
-            session["username"] = user.username  # Store username in session
+            login_user(user)  # Log the user in
             return redirect(url_for("index"))
         return redirect(url_for("login", error="Invalid credentials"))
     return render_template("login.html")
@@ -83,8 +99,8 @@ def login():
 
 @app.route("/logout")
 def logout():
-    session.clear()  # Clear session
-    return redirect(url_for("index"))  # Redirect to home page
+    logout_user()  # Log the user out
+    return redirect(url_for("index"))
 
 
 @app.route("/register", methods=["GET", "POST"])

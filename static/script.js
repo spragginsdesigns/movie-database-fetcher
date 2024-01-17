@@ -13,7 +13,7 @@ document.getElementById('movieForm').addEventListener('submit', function (e) {
                     movieElement.innerHTML = `
                         <p>${movie.Title} (${movie.Year}) 
                             <button onclick="fetchMovieDetails('${movie.imdbID}')">Details</button>
-                            <button onclick="addToWatchList('${movie.imdbID}', '${movie.Title.replace(/'/g, "\\'")}', '${movie.Year}')">Add to Watch List</button>
+                            <button onclick="addToWatchListServer('${movie.imdbID}', '${movie.Title.replace(/'/g, "\\'")}', '${movie.Year}'); addToWatchListLocal('${movie.imdbID}', '${movie.Title.replace(/'/g, "\\'")}', '${movie.Year}')">Add to Watch List</button>
                         </p>
                     `;
                     searchResults.appendChild(movieElement);
@@ -24,8 +24,7 @@ document.getElementById('movieForm').addEventListener('submit', function (e) {
         })
         .catch(error => console.error('Error:', error));
 });
-
-function addToWatchList(imdbID, title, year) {
+function addToWatchListServer(imdbID, title, year) {
     fetch('/add_to_watchlist', {
         method: 'POST',
         headers: {
@@ -44,6 +43,17 @@ function addToWatchList(imdbID, title, year) {
         .catch((error) => {
             console.error('Error:', error);
         });
+}
+
+// ...
+
+function addToWatchListLocal(imdbID, title, year) {
+    let watchList = JSON.parse(localStorage.getItem('watchList')) || [];
+    if (!watchList.includes(imdbID)) {
+        watchList.push({ imdbID, title, year });
+        localStorage.setItem('watchList', JSON.stringify(watchList));
+        displayWatchList();
+    }
 }
 
 function fetchMovieDetails(imdbID) {
@@ -69,14 +79,6 @@ function fetchMovieDetails(imdbID) {
 
 }
 
-function addToWatchList(imdbID, title, year) {
-    let watchList = JSON.parse(localStorage.getItem('watchList')) || [];
-    if (!watchList.includes(imdbID)) {
-        watchList.push({ imdbID, title, year });
-        localStorage.setItem('watchList', JSON.stringify(watchList));
-        displayWatchList();
-    }
-}
 
 function displayWatchList() {
     let watchList = JSON.parse(localStorage.getItem('watchList')) || [];
