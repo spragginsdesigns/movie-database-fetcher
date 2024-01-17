@@ -25,6 +25,27 @@ document.getElementById('movieForm').addEventListener('submit', function (e) {
         .catch(error => console.error('Error:', error));
 });
 
+function addToWatchList(imdbID, title, year) {
+    fetch('/add_to_watchlist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ imdbID, title, year }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Movie added to watchlist!');
+            } else {
+                alert('Failed to add movie to watchlist.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
 function fetchMovieDetails(imdbID) {
     fetch(`/getMovieDetails?imdbID=${imdbID}`)
         .then(response => response.json())

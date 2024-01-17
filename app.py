@@ -11,6 +11,7 @@ from flask import (
 )
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_required, current_user
 import requests
 
 app = Flask(__name__)
@@ -23,11 +24,31 @@ app.secret_key = "your_secret_key"  # Replace with a strong secret key
 db = SQLAlchemy(app)
 
 
+# Movie Model
+class Movie(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    imdbID = db.Column(db.String(100), unique=True, nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    year = db.Column(db.String(4), nullable=False)
+    users = db.relationship("User", secondary="user_movies")
+
+
+# UserMovies association table
+user_movies = db.Table(
+    "user_movies",
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
+    db.Column("movie_id", db.Integer, db.ForeignKey("movie.id"), primary_key=True),
+)
+
+
 # User Model
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
+    watchlist = db.relationship(
+        "Movie", secondary=user_movies, backref="watchlist_users"
+    )
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -92,10 +113,44 @@ def register():
 
 @app.route("/watchlist")
 def watchlist():
-    if "user_id" not in session:
-        return redirect(url_for("login"))
-    # Logic to display watchlist goes here
-    return render_template("watchlist.html")
+    user = User.query.get(session["user_id"])
+    return render_template("watchlist.html", movies=user.watchlist)
+
+
+@app.route("/add_to_watchlist/<int:movie_id>", methods=["POST"])
+@login_required
+def add_to_watchlist(movie_id):
+    print(f"Movie ID: {movie_id}")  # This will print the movie_id to the console
+    movie = Movie.query.get(movie_id)
+    if movie not in current_user.watchlist:
+        current_user.watchlist.append(movie)
+        db.session.commit()
+    return redirect(url_for("watchlist"))
+
+
+@app.route("/add_to_watchlist", methods=["POST"])
+def add_to_watchlist_post():
+    data = request.get_json()
+    imdbID = data["imdbID"]
+    title = data["title"]
+    year = data["year"]
+    # Rest of your code...
+
+    # Check if movie already exists in the database
+    movie = Movie.query.filter_by(imdbID=imdbID).first()
+
+    # If movie doesn't exist, create a new one
+    if movie is None:
+        movie = Movie(imdbID=imdbID, title=title, year=year)
+        db.session.add(movie)
+        db.session.commit()
+
+    # Add movie to user's watchlist
+    user = User.query.get(session["user_id"])
+    user.watchlist.append(movie)
+    db.session.commit()
+
+    return jsonify(success=True)
 
 
 @app.route("/searchMovies")

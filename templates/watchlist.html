@@ -35,6 +35,10 @@
     <div class="container watchlist-container">
       <h1>Your Watchlist</h1>
       <div id="watchListItems">
+        {% for movie in movies %}
+        <h2>{{ movie.title }}</h2>
+        <p>{{ movie.description }}</p>
+        {% endfor %}
         <!-- Watchlist items will be populated here -->
       </div>
     </div>
