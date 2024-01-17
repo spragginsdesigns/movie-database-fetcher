@@ -1,61 +1,66 @@
+Certainly, Austin. Here's an organized and enhanced version of the `README.md` for the "Movie Metadata Fetcher" project:
+
+---
+
 # Movie Metadata Fetcher
 
 ## Project Overview
-Movie Metadata Fetcher is a web application that allows users to search for movies and TV shows, view detailed information about them, and create a personal watch list. The app utilizes the OMDB API to fetch data and presents it in an easily navigable format.
+Movie Metadata Fetcher is a dynamic web application designed to provide users with comprehensive data on movies and TV shows. Leveraging the OMDB API, the app furnishes detailed information in an intuitive and user-friendly format, enhancing the movie-selection process. Additionally, it offers personalized features, such as a custom watch list and user profile integration.
 
 ## Features
-- Search for movies and TV shows by title
-- View detailed information including plot, director, actors, and more
-- Add titles to a personal watch list
-- Elegant and user-friendly interface
+- **Efficient Search**: Easily search for movies and TV shows by title.
+- **Detailed Information**: Access in-depth details like plot, director, actors, and more.
+- **Personal Watch List**: Conveniently add and manage titles in your watch list.
+- **User Authentication**: Secure and straightforward user registration, login, and logout processes.
+- **Profile Integration**: Personalize the experience with your profile picture on the navigation bar.
+- **Elegant Interface**: Enjoy a visually appealing and user-friendly UI/UX.
 
 ## Technologies Used
-- Frontend: HTML, CSS, JavaScript
-- Backend: Python (Flask)
-- API: OMDB API
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Python (Flask), Flask-Login for session management
+- **API Integration**: OMDB API
 
 ## Installation and Setup
-
-### Prerequisites
+Ensure you have the following prerequisites:
 - Python 3
 - Flask
-- Internet connection for API access
+- Flask-Login
+- Active Internet connection for API interactions
 
-### Steps
+### Installation Steps
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/your-github-username/movie-metadata-fetcher.git
    cd movie-metadata-fetcher
    ```
 
-2. **Install Flask**
-   If Flask is not already installed:
+2. **Install Dependencies**
    ```bash
-   pip install Flask
+   pip install Flask flask-login
    ```
 
 3. **API Key Configuration**
-   - Obtain an API key from [OMDB API](https://www.omdbapi.com/apikey.aspx).
+   - Obtain an API key from [OMDB API](https://www.omdbapi.com/).
    - Insert your API key in `app.py`.
 
 4. **Run the Application**
    ```bash
    python -m flask run
    ```
-   Access the app at `http://localhost:5000`.
+   Access the app at [http://localhost:5000](http://localhost:5000).
 
-## Usage
-- **Search**: Enter a movie or TV show title in the search bar and hit 'Search'.
-- **View Details**: Click on 'Details' to view more information about the title.
-- **Add to Watch List**: Click on 'Add to Watch List' to save the title for later viewing.
+## Usage Guide
+- **Search**: Input a title in the search bar and select 'Search'.
+- **View Details**: Click 'Details' for comprehensive information.
+- **Watch List**: Use 'Add to Watch List' to bookmark titles.
+- **User Accounts**: Register, log in, and manage your account.
+- **Profile**: View your profile picture in the navigation bar.
 
 ## Contributing
-Contributions to the Movie Metadata Fetcher are welcome!
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -am 'Add some feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Create a new Pull Request.
+We welcome contributions to enhance the Movie Metadata Fetcher!
 
-## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+- Fork the repository.
+- Create a feature branch (`git checkout -b feature-branch`).
+- Implement your changes and commit (`git commit -am 'Add some feature'`).
+- Push to the branch (`git push origin feature-branch`).
+- Submit a Pull Request.
