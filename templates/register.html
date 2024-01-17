@@ -28,7 +28,14 @@
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/register" class="active">Register</a></li>
+        {% if session['username'] %}
+        <li><i class="fas fa-user-circle"></i></li>
+        <!-- Font Awesome user icon -->
+        <li>Logged in as: {{ session['username'] }}</li>
+        <li><a href="/logout">Logout</a></li>
+        {% else %}
+        <li><a href="/login">Login</a></li>
+        {% endif %}
         <li><a href="/watchlist">Watch List</a></li>
       </ul>
     </nav>
