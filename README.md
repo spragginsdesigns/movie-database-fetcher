@@ -1,7 +1,3 @@
-Certainly, Austin. Here's an organized and enhanced version of the `README.md` for the "Movie Metadata Fetcher" project:
-
----
-
 # Movie Metadata Fetcher
 
 ## Project Overview
